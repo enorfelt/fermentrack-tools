@@ -231,6 +231,28 @@ echo "Done! Exiting."
 eof
 }
 
+fixNginx() {
+  if [ -f "/etc/nginx/sites-available/default-fermentrack" ]; then
+    printinfo "Nginx configuration already exists at /etc/nginx/sites-available/default-fermentrack"
+  else
+    wget https://raw.githubusercontent.com/thorrak/fermentrack-tools/master/nginx-configs/default-fermentrack
+    printinfo "Copying nginx configuration to /etc/nginx"
+    # Replace all instances of 'brewpiuser' with the fermentrackUser we set and save as the nginx configuration
+    sed "s/brewpiuser/${fermentrackUser}/" default-fermentrack > /etc/nginx/sites-available/default-fermentrack
+    rm -f /etc/nginx/sites-enabled/default &> /dev/null
+  fi
+
+  if [ -f "/etc/nginx/sites-enabled/default-fermentrack" ]; then
+    printinfo "Nginx configuration is already active"
+
+  else
+    printinfo "Activating nginx configuration"
+    ln -sf /etc/nginx/sites-available/default-fermentrack /etc/nginx/sites-enabled/default-fermentrack
+  fi
+
+  service nginx restart
+}
+
 
 # Run everything
 verifyFreeDiskSpace
@@ -242,6 +264,7 @@ checkPython37
 createPythonVenv
 fixPermissions
 setPythonSetcap
+fixNginx
 
 # Run the bits requiring sudo (I'd love to break these out...)
 doEverythingRequiringSudo
