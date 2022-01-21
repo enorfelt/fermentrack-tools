@@ -23,7 +23,7 @@ install_curl_url="install.fermentrack.com"
 install_script_name="non_docker_install/install.sh"
 install_curl_command="curl -L $install_curl_url | sudo bash"
 tools_name="fermentrack-tools"
-tools_repo_url="https://github.com/thorrak/fermentrack-tools.git"
+tools_repo_url="https://github.com/enorfelt/fermentrack-tools.git"
 
 # Set scriptPath to the current script path
 unset CDPATH

@@ -50,7 +50,7 @@
 
 package_name="Fermentrack"
 PORT="80"
-github_repo="https://github.com/thorrak/fermentrack.git"
+github_repo="https://github.com/enorfelt/fermentrack.git"
 github_branch="master"
 green=$(tput setaf 76)
 red=$(tput setaf 1)
