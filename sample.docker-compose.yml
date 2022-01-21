@@ -8,7 +8,10 @@ volumes:
 
 services:
   django: &django
-    image: jdbeeler/fermentrack:latest
+    image: enorfelt/fermentrack:latest
+    build:
+      context: .
+      dockerfile: ./compose/production/django/Dockerfile
     depends_on:
       - postgres
       - redis
